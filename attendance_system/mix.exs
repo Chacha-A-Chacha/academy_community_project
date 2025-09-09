@@ -71,7 +71,7 @@ defmodule AttendanceSystem.MixProject do
       {:bandit, "~> 1.5"},
 
       # Environment variables
-      {:dotenv, "~> 1.0.0"},
+      {:dotenvy, "~> 1.0.0"},
 
       # Authentication and authorization
       {:bcrypt_elixir, "~> 3.0"},
