@@ -22,11 +22,7 @@ defmodule AcademyAttendance.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ecto, "~> 3.9"},
-      {:ecto_sql, "~> 3.9"},
-      {:postgrex, "~> 0.16"},
-      {:jason, "~> 1.4"},
-      {:uuid, "~> 1.1"}
+      # Will add dependencies when network access is available
     ]
   end
 end

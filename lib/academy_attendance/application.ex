@@ -8,8 +8,10 @@ defmodule AcademyAttendance.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: AcademyAttendance.Worker.start_link(arg)
-      # {AcademyAttendance.Worker, arg}
+      # Start the context GenServers
+      AcademyAttendance.Accounts,
+      AcademyAttendance.Courses,
+      AcademyAttendance.Attendance
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
