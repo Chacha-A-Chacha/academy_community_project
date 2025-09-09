@@ -71,7 +71,7 @@ defmodule AttendanceSystem.MixProject do
       {:bandit, "~> 1.5"},
 
       # Environment variables
-      {:dotenv, "~> 0.8.0"},
+      {:dotenv, "~> 1.0.0"},
 
       # Authentication and authorization
       {:bcrypt_elixir, "~> 3.0"},
@@ -85,7 +85,7 @@ defmodule AttendanceSystem.MixProject do
       {:elixlsx, "~> 0.4.2"},
 
       # QR Code generation
-      {:qrcode, "~> 0.1.10"},
+      {:qr_code, "~> 3.2.0"},
 
       # HTTP client
       {:httpoison, "~> 1.8"},
