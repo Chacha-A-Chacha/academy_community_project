@@ -47,6 +47,7 @@ defmodule AttendanceSystem.MixProject do
       {:phoenix_html, "~> 4.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 1.1.0"},
+      {:floki, ">= 0.30.0", only: :test},
       {:lazy_html, ">= 0.1.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.8.3"},
       {:esbuild, "~> 0.10", runtime: Mix.env() == :dev},
@@ -59,14 +60,42 @@ defmodule AttendanceSystem.MixProject do
        compile: false,
        depth: 1},
       {:swoosh, "~> 1.16"},
+      {:finch, "~> 0.13"},
       {:req, "~> 0.5"},
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.26"},
       {:jason, "~> 1.2"},
+      {:plug_cowboy, "~> 2.5"},
       {:dns_cluster, "~> 0.2.0"},
-      {:bandit, "~> 1.5"}
-    ]
+      {:bandit, "~> 1.5"},
+
+      # Environment variables
+      {:dotenv, "~> 0.8.0"},
+
+      # Authentication and authorization
+      {:bcrypt_elixir, "~> 3.0"},
+      {:guardian, "~> 2.3"},
+
+      # background jobs
+      {:oban, "~> 2.14"},
+
+      # CSV/Excel processing
+      {:nimble_csv, "~> 1.2"},
+      {:elixlsx, "~> 0.4.2"},
+
+      # QR Code generation
+      {:qrcode, "~> 0.1.10"},
+
+      # HTTP client
+      {:httpoison, "~> 1.8"},
+
+      # Development and testing tools
+      {:ex_machina, "~> 2.7", only: [:dev, :test]},
+      {:faker, "~> 0.17", only: [:dev, :test]},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.3", only: [:dev], runtime: false}
+   ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
