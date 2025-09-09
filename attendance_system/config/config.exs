@@ -7,6 +7,21 @@
 # General application configuration
 import Config
 
+# Load environment variables with Dotenvy
+import Dotenvy
+source([".env"])
+
+# Configure Tailwind CSS
+config :tailwind,
+  version: "4.1.10",
+  attendance_system: [
+    args: ~w(
+      --input=assets/css/app.css
+      --output=priv/static/assets/css/app.css
+    ),
+    cd: Path.expand("..", __DIR__)
+  ]
+
 config :attendance_system,
   ecto_repos: [AttendanceSystem.Repo],
   generators: [timestamp_type: :utc_datetime, binary_id: true]
