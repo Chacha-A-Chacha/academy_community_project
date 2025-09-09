@@ -6,10 +6,10 @@ import Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :attendance_system, AttendanceSystem.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "attendance_system_test#{System.get_env("MIX_TEST_PARTITION")}",
+  username: env!("DB_USERNAME", :string, "postgres"),
+  password: env!("DB_PASSWORD", :string, "postgres"),
+  hostname: env!("DB_HOSTNAME", :string, "localhost"),
+  database: env!("DB_NAME", :string, "attendance_system_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: System.schedulers_online() * 2
 
@@ -25,6 +25,9 @@ config :attendance_system, AttendanceSystem.Mailer, adapter: Swoosh.Adapters.Tes
 
 # Disable swoosh api client as it is only required for production adapters
 config :swoosh, :api_client, false
+
+# Disable Oban in test
+config :attendance_system, Oban, testing: :inline
 
 # Print only warnings and errors during test
 config :logger, level: :warning
