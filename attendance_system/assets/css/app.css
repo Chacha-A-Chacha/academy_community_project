@@ -1,28 +1,24 @@
-/* See the Tailwind configuration guide for advanced usage
-   https://tailwindcss.com/docs/configuration */
+/* assets/css/app.css */
 
-@import "tailwindcss" source(none);
+/* Import Tailwind CSS v4 (Official Phoenix Method) */
+@import "tailwindcss";
+
+/* Source directories for Tailwind to scan */
 @source "../css";
 @source "../js";
 @source "../../lib/attendance_system_web";
 
-/* A Tailwind plugin that makes "hero-#{ICON}" classes available.
-   The heroicons installation itself is managed by your mix.exs */
+/* Heroicons plugin for icons (hero-qr-code, hero-check, hero-user, etc.) */
 @plugin "../vendor/heroicons";
 
-/* daisyUI Tailwind Plugin. You can update this file by fetching the latest version with:
-   curl -sLO https://github.com/saadeghi/daisyui/releases/latest/download/daisyui.js
-   Make sure to look at the daisyUI changelog: https://daisyui.com/docs/changelog/ */
+/* DaisyUI component library for professional UI components */
 @plugin "../vendor/daisyui" {
   themes: false;
 }
 
-/* daisyUI theme plugin. You can update this file by fetching the latest version with:
-  curl -sLO https://github.com/saadeghi/daisyui/releases/latest/download/daisyui-theme.js
-  We ship with two themes, a light one inspired on Phoenix colors and a dark one inspired
-  on Elixir colors. Build your own at: https://daisyui.com/theme-generator/ */
+/* Custom Dark Theme for Attendance System */
 @plugin "../vendor/daisyui-theme" {
-  name: "dark";
+  name: "attendance-dark";
   default: false;
   prefersdark: true;
   color-scheme: "dark";
@@ -56,8 +52,9 @@
   --noise: 0;
 }
 
+/* Custom Light Theme for Attendance System */
 @plugin "../vendor/daisyui-theme" {
-  name: "light";
+  name: "attendance-light";
   default: true;
   prefersdark: false;
   color-scheme: "light";
@@ -91,15 +88,286 @@
   --noise: 0;
 }
 
-/* Add variants based on LiveView classes */
+/* LiveView Loading State Variants */
 @custom-variant phx-click-loading (.phx-click-loading&, .phx-click-loading &);
 @custom-variant phx-submit-loading (.phx-submit-loading&, .phx-submit-loading &);
 @custom-variant phx-change-loading (.phx-change-loading&, .phx-change-loading &);
 
-/* Use the data attribute for dark mode  */
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+/* Dark Mode Variant */
+@custom-variant dark (&:where([data-theme=attendance-dark], [data-theme=attendance-dark] *));
 
 /* Make LiveView wrapper divs transparent for layout */
-[data-phx-session], [data-phx-teleported-src] { display: contents }
+[data-phx-session], [data-phx-teleported-src] { 
+  display: contents;
+}
 
-/* This file is for your main application CSS */
+/* ========================================
+   CUSTOM ATTENDANCE SYSTEM STYLES
+   ======================================== */
+
+/* QR Code Scanner Container */
+.qr-scanner-container {
+  @apply card bg-base-100 shadow-xl border-2 border-dashed border-primary/30;
+}
+
+.qr-scanner-active {
+  @apply border-primary border-solid animate-pulse;
+}
+
+.qr-scanner-success {
+  @apply border-success bg-success/5;
+}
+
+/* Attendance Status Components */
+.attendance-card {
+  @apply card bg-base-100 shadow-sm hover:shadow-md transition-shadow duration-200;
+}
+
+.student-card {
+  @apply card bg-base-100 border border-base-300 hover:border-primary/50 transition-colors;
+}
+
+.session-card {
+  @apply card bg-gradient-to-r from-primary/5 to-secondary/5 border border-primary/20;
+}
+
+/* Status Badges with Icons */
+.status-present {
+  @apply badge badge-success gap-1;
+}
+
+.status-absent {
+  @apply badge badge-error gap-1;
+}
+
+.status-wrong-session {
+  @apply badge badge-warning gap-1;
+}
+
+.status-pending {
+  @apply badge badge-ghost gap-1;
+}
+
+/* Interactive Elements */
+.scan-button {
+  @apply btn btn-primary gap-2 phx-click-loading:loading;
+}
+
+.scan-button:disabled {
+  @apply btn-disabled;
+}
+
+.manual-entry-button {
+  @apply btn btn-outline btn-secondary gap-2;
+}
+
+/* Form Components */
+.attendance-form {
+  @apply form-control w-full max-w-md;
+}
+
+.attendance-input {
+  @apply input input-bordered focus:input-primary;
+}
+
+.attendance-select {
+  @apply select select-bordered focus:select-primary;
+}
+
+.attendance-textarea {
+  @apply textarea textarea-bordered focus:textarea-primary;
+}
+
+/* Dashboard Cards */
+.dashboard-stat-card {
+  @apply stat bg-base-100 border border-base-300 rounded-lg;
+}
+
+.dashboard-stat-number {
+  @apply stat-value text-primary;
+}
+
+.dashboard-stat-title {
+  @apply stat-title text-base-content/70;
+}
+
+/* Navigation Components */
+.nav-link {
+  @apply btn btn-ghost gap-2 justify-start;
+}
+
+.nav-link.active {
+  @apply btn-active;
+}
+
+/* Role-based styling */
+.admin-section {
+  @apply border-l-4 border-l-accent bg-accent/5;
+}
+
+.teacher-section {
+  @apply border-l-4 border-l-primary bg-primary/5;
+}
+
+.student-section {
+  @apply border-l-4 border-l-secondary bg-secondary/5;
+}
+
+/* Loading States */
+.loading-overlay {
+  @apply fixed inset-0 bg-base-100/80 backdrop-blur-sm z-50 flex items-center justify-center;
+}
+
+.loading-spinner {
+  @apply loading loading-spinner loading-lg text-primary;
+}
+
+/* Notification Components */
+.notification-success {
+  @apply alert alert-success shadow-lg;
+}
+
+.notification-error {
+  @apply alert alert-error shadow-lg;
+}
+
+.notification-warning {
+  @apply alert alert-warning shadow-lg;
+}
+
+.notification-info {
+  @apply alert alert-info shadow-lg;
+}
+
+/* Table Components */
+.attendance-table {
+  @apply table table-zebra bg-base-100;
+}
+
+.attendance-table th {
+  @apply bg-base-200;
+}
+
+/* Modal Components */
+.attendance-modal {
+  @apply modal modal-bottom sm:modal-middle;
+}
+
+.attendance-modal-box {
+  @apply modal-box max-w-2xl;
+}
+
+/* Progress Components */
+.attendance-progress {
+  @apply progress progress-primary;
+}
+
+.session-progress {
+  @apply progress progress-secondary;
+}
+
+/* Responsive Utilities */
+@media (max-width: 768px) {
+  .mobile-hidden {
+    @apply hidden;
+  }
+  
+  .mobile-full {
+    @apply w-full;
+  }
+  
+  .mobile-stack {
+    @apply flex-col space-y-2;
+  }
+}
+
+/* Print Styles for Reports */
+@media print {
+  .no-print {
+    @apply hidden;
+  }
+  
+  .print-block {
+    @apply block;
+  }
+  
+  .attendance-table {
+    @apply text-sm;
+  }
+}
+
+/* Accessibility Improvements */
+.focus-visible {
+  @apply focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-base-100;
+}
+
+/* Animation Classes */
+.fade-in {
+  @apply animate-fade-in;
+}
+
+.slide-up {
+  @apply animate-slide-up;
+}
+
+/* QR Code Specific Styles */
+.qr-code-display {
+  @apply flex justify-center items-center p-4 bg-white rounded-lg shadow-inner;
+}
+
+.qr-code-canvas {
+  @apply max-w-full h-auto;
+}
+
+/* Custom Animations */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { 
+    opacity: 0; 
+    transform: translateY(1rem); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+/* Weekend Schedule Styling */
+.saturday-session {
+  @apply border-l-4 border-l-blue-500 bg-blue-50 dark:bg-blue-900/20;
+}
+
+.sunday-session {
+  @apply border-l-4 border-l-purple-500 bg-purple-50 dark:bg-purple-900/20;
+}
+
+/* Attendance History Timeline */
+.timeline-item {
+  @apply relative pl-8 pb-8;
+}
+
+.timeline-item::before {
+  @apply absolute left-2 top-2 w-2 h-2 bg-primary rounded-full;
+  content: '';
+}
+
+.timeline-item::after {
+  @apply absolute left-2.5 top-4 w-0.5 h-full bg-base-300;
+  content: '';
+}
+
+.timeline-item:last-child::after {
+  @apply hidden;
+}

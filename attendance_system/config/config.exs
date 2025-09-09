@@ -8,7 +8,7 @@
 import Config
 
 # Load environment variables with Dotenvy
-# import Dotenvy
+import Dotenvy
 source([".env"])
 
 # Configure Tailwind CSS
