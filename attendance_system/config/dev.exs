@@ -2,13 +2,13 @@ import Config
 
 # Configure your database
 config :attendance_system, AttendanceSystem.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "attendance_system_dev",
+  username: env!("DB_USERNAME", :string, "postgres"),
+  password: env!("DB_PASSWORD", :string, "postgres"),
+  hostname: env!("DB_HOSTNAME", :string, "localhost"),
+  database: env!("DB_NAME", :string, "attendance_system_dev"),
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  pool_size: env!("DB_POOL_SIZE", :integer, 10)
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -19,11 +19,11 @@ config :attendance_system, AttendanceSystem.Repo,
 config :attendance_system, AttendanceSystemWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: String.to_integer(System.get_env("PORT") || "4000")],
+  http: [ip: {127, 0, 0, 1}, port: env!("PHX_PORT", :integer, 4000)],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "nPzSKf7JWVVbsA0ZZFjDNPYSiI8By2DMyjWXHZNhsPc321Eh9fOAzp2My6XQZ9HH",
+  secret_key_base: env!("SECRET_KEY_BASE", :string, "nPzSKf7JWVVbsA0ZZFjDNPYSiI8By2DMyjWXHZNhsPc321Eh9fOAzp2My6XQZ9HH"),
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:attendance_system, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:attendance_system, ~w(--watch)]}
